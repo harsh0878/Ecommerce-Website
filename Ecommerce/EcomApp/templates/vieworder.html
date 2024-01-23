@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}
+  cart page
+{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-9 mt-2">
+        <h5 class="bg-primary text-white p-2">customer Details</h5><br>
+        <p><b>Name:</b>{{user.username}}</p><br>
+        <p><b>phoneno:</b>12345678789</p><br>
+        <p><b>Email:</b>{{user.email}}</p><br>
+        <h5 class="bg-primary text-white p-2">cart Details</h5>
+ {% for x in cart_items %} 
+        <div class="row">
+        <div class="col-md-4 mt-2">
+          <img src="{{x.product.image.url}}" width="100%" style="height: 200px;">
+
+        </div>
+        <div class="col-md-8 mt-2">
+            <p><b>ProductName:</b>&nbsp;&nbsp;{{x.product.product_name}}</p>
+            <p><b>ProductPrice:</b>&nbsp;&nbsp;{{x.product.price}}</p>
+            <p><b>ProductQuantity:</b>&nbsp;&nbsp;{{x.quantity}}
+           {% comment %}  <a href="/updateqty/0/{{x.product.wid}}"><button class="btn btn-primary">-</button></a>
+            <input type="number" value="{{x.quantity}}">
+            <a href="/updateqty/1/{{x.product.wid}}"><button class="btn btn-primary">+</button></a> {% endcomment %}
+            
+            </p>
+            <p><b>ProductDetails:</b>&nbsp;&nbsp;{{x.product.description}}</p>
+            {% comment %} <a href="/remove/{{x.product.wid}}"><button type="submit" class="btn btn-primary">Remove</button></a>
+            <a href="#"><button type="submit" class="btn btn-primary">Buy</button></a>  {% endcomment %}
+
+        </div>
+        </div>
+
+ 
+ {% empty %}
+ <div class="row">
+  <div class="col">
+    your cart is empty<br>
+    continue shopping!!<br>
+  </div>
+ </div>
+ {% endfor %}
+
+
+    </div>
+    <div class="col-md-3 mt-2"> 
+        <h5 class="bg-primary text-white p-2">totals amt sec</h5><br>
+        <p><b>total items({{items}}):</b>&nbsp;&nbsp;{{total}}</p>
+        <p><b>total Amount:</b>Rs.&nbsp;&nbsp;{{total}}</p>
+        <a href="{% url 'payment' %}"><button type="submit" class="btn btn-primary">Make Payment</button></a>
+
+    </div>
+</div>
+{% endblock %}

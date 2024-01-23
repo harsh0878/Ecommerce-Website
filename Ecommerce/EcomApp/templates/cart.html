@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}
+    Ekart | Cart
+{% endblock %}
+
+{%block body%}
+<div class="row">
+    <div class="col-md-9">
+        
+        <h5 class="bg-danger text-white p-2" align="center">Customer Details</h5>
+        <p><b>Name:</b>Anonymous</p>
+        <p><b>Phone No:</b>1234567890</p>
+        <p><b>Email:</b>abc@gmail.com</p>
+
+        <h5 class="bg-danger text-white p-2" align="center">Cart Details</h5>
+        
+        {% for x in cart_items %}
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{x.product.image.url}}" alt="" width="100%" style="height:200px">
+            </div>
+            <div class="col-md-8">
+                <p><b>Product Name:</b>&nbsp;&nbsp;{{x.product.product_name}}</p>
+                <p><b>Price:</b>&nbsp;&nbsp;{{x.product.price}}</p>
+                <p><b>Quantity:</b>&nbsp;&nbsp;
+                    <a href="/updateqty/0/{{x.product.product_id}}"><button class="btn btn-danger">-</button></a>
+                    <input type="number" value="{{x.quantity}}">
+                    <a href="/updateqty/1/{{x.product.product_id}}"><button class="btn btn-danger">+</button></a>
+                
+                </p>
+                <p><b>Product Details:</b>&nbsp;&nbsp;{{x.product.desc}}</p>
+                <a href="/delete/{{x.product_id}}"><button type="submit" class="btn btn-danger">Remove</button></a>
+                <a href="#"><button type="submit" class="btn btn-danger">Buy</button></a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="row">
+            <div class="col">
+                Your cart is empty <br>
+                Continue Shopping!!
+            </div>
+        </div>
+        <br><br>
+        {% endfor %}
+    </div>
+    <div class="col-md-3">
+        <h5 class="bg-danger text-white p-2" align="center">Total Amount</h5>
+        <p><b>Total Items:&nbsp;{{items}}</b></p><hr>
+        <p><b>Total Amount:</b>&nbsp;Rs&nbsp;{{total}}</p>
+        <a href="{% url "vieworder" %}"><button type="submit" class="btn btn-danger">Place Order</button></a>
+
+    </div>
+</div>
+
+{% endblock %}

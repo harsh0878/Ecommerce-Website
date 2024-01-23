@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block body %}
+
+    <div class="col-md-3 " >
+        <h4>Filter by Category</h4>
+        <hr>
+        <p><a href="">All</a></p>
+        <p><a href="{% url 'watchList' %}">Watches</a></p>
+        <p><a href="{% url 'laptopList' %}">Laptop</a></p>
+        <p><a href="{% url 'mobileList' %}">Mobile</a></p>
+        <h4>Filter by price</h4>
+        <form method="post" action="{% url 'range' %}">
+          {% csrf_token %}
+            <div class="mb-3">
+              <label for="Input1">Minimum</label>
+              <input type="text" class="form-control" name="min" id="Input1" aria-describedby="emailHelp" placeholder="Minimum value">
+            
+            </div>
+            <div class="mb-3">
+              <label for="Input2">Maximum</label>
+              <input type="text" class="form-control" name="max" id="Input2" placeholder="Maximum value">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form><br>
+        <h4>Sort by Price</h4>
+        <p><a href="/hightolow">High to Low</a></p>
+        <p><a href="/sort">Low to High</a></p>
+    </div>
+    <div class="col-md-9">
+        <div class="row m-2" >
+            {%for x in products%}
+            <div class="col-md-4" style=" padding-bottom: 10px">
+                <div class="card" style="width: 100%;">
+                    <img src="{{x.image.url}}" class="card-img-top" alt="..." style="width: 100%; height: 200px;">
+                    <div class="card-body">
+                      <h5 class="card-title">{{x.product_name}}</h5>
+                      <p class="card-text">{{x.price}}</p>
+
+                      <a href="/details/{{x.product_id}}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+
+           {% comment %}  <div class="col-md-3">
+                <div class="card" style="width: 100%;">
+                    <img src="{% static 'images/w1.jpg'%}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card" style="width: 100%;">
+                    <img src="{% static 'images/w1.jpg'%}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+      
+        <div class="row m-2">
+            <div class="col-md-3">
+                <div class="card" style="width: 100%;">
+                    <img src="/static/images/w1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card" style="width: 100%;">
+                    <img src="/static/images/w1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card" style="width: 100%;">
+                    <img src="/static/images/w1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div> 
+        </div>{% endcomment %}
+    </div>
+
+{% endblock %}
